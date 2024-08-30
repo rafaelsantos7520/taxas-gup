@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Entregas Guarapari</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-top: 10px;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tabela de Entregas - Guarapari</h1>
+        <div class="mb-3">
+            <label for="origem" class="form-label">Selecione a Origem:</label>
+            <select id="origem" class="form-select">
+                <option value="">Escolha a origem</option>
+                <option value="Muquiçaba">Muquiçaba</option>
+                <option value="Praia do Morro">Praia do Morro</option>
+                <option value="Centro">Centro</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="destino" class="form-label">Selecione o Destino:</label>
+            <select id="destino" class="form-select">
+                <option value="">Escolha o destino</option>
+                <option value="Muquiçaba">Muquiçaba</option>
+                <option value="Praia do Morro">Praia do Morro</option>
+                <option value="Centro">Centro</option>
+                <option value="Itapebuçú">Itapebuçú</option>
+                <option value="Aeroporto">Aeroporto</option>
+                <option value="Santa Rosa">Santa Rosa</option>
+                <option value="Jardim Boa Vista">Jardim Boa Vista</option>
+                <option value="Jardim Santa Rosa">Jardim Santa Rosa</option>
+                <option value="Jabaraí">Jabaraí</option>
+                <option value="Portal Clube">Portal Clube</option>
+                <option value="Perocão">Perocão</option>
+                <option value="Santa Mônica">Santa Mônica</option>
+                <option value="Setiba">Setiba</option>
+                <option value="Adalberto">Adalberto</option>
+                <option value="Lagoa Funda">Lagoa Funda</option>
+                <option value="Sol Nascente">Sol Nascente</option>
+                <option value="São José">São José</option>
+                <option value="São Gabriel">São Gabriel</option>
+                <option value="Nossa Senhora da Conceição">Nossa Senhora da Conceição</option>
+                <option value="Bela Vista">Bela Vista</option>
+                <option value="Nossa Senhora de Fátima">Nossa Senhora de Fátima</option>
+                <option value="Rodoviária">Rodoviária</option>
+                <option value="Ipiranga">Ipiranga</option>
+                <option value="Olaria">Olaria</option>
+                <option value="Kubitschek">Kubitschek</option>
+                <option value="Coronado">Coronado</option>
+                <option value="Concha da Ostra">Concha da Ostra</option>
+                <option value="Praia do Riacho">Praia do Riacho</option>
+                <option value="Lameirão">Lameirão</option>
+                <option value="Nova Guarapari">Nova Guarapari</option>
+                <option value="Meaípe">Meaípe</option>
+                <option value="Condados">Condados</option>
+                <option value="Porto Grande">Porto Grande</option>
+                <option value="Mãe-bá">Mãe-bá</option>
+                <option value="Taquaras">Taquaras</option>
+                <option value="Praia do Sol">Praia do Sol</option>
+            </select>
+        </div>
+
+        <p id="resultado" class="alert alert-primary"></p>
+    </div>
+
+    <script>
+        const valoresEntrega = {
+            "Muquiçaba": {
+                "Muquiçaba": 7.00,
+                "Centro": 9.00,
+                "Praia do Morro": 8.00,
+                "Itapebuçú": 8.00,
+                "Aeroporto": 10.00,
+                "Santa Rosa": 11.00,
+                "Jardim Boa Vista": 11.00,
+                "Jardim Santa Rosa": 12.00,
+                "Jabaraí": 13.00,
+                "Portal Clube": 13.00,
+                "Perocão": 13.00,
+                "Santa Mônica": 15.00,
+                "Setiba": 18.00,
+                "Adalberto": 8.00,
+                "Lagoa Funda": 9.00,
+                "Sol Nascente": 9.00,
+                "São José": 12.00,
+                "São Gabriel": 12.00,
+                "Nossa Senhora da Conceição": 12.00,
+                "Bela Vista": 12.00,
+                "Nossa Senhora de Fátima": 14.00,
+                "Rodoviária": 14.00,
+                "Ipiranga": 10.00,
+                "Olaria": 10.00,
+                "Kubitschek": 11.00,
+                "Coronado": 11.00,
+                "Concha da Ostra": 13.00,
+                "Praia do Riacho": 13.00,
+                "Lameirão": 16.00,
+                "Nova Guarapari": 16.00,
+                "Meaípe": 18.00
+            },
+            "Praia do Morro": {
+                "Praia do Morro": 7.00,
+                "Muquiçaba": 8.00,
+                "Centro": 9.00,
+                "Itapebuçú": 8.00,
+                "Camurugi": 8.00,
+                "Aeroporto": 7.00,
+                "Santa Rosa": 8.00,
+                "Jardim Boa Vista": 8.00,
+                "Jardim Santa Rosa": 9.00,
+                "Jabaraí": 12.00,
+                "Portal Clube": 13.00,
+                "Perocão": 13.00,
+                "Santa Mônica": 14.00,
+                "Setiba": 17.00,
+                "Adalberto": 8.00,
+                "Lagoa Funda": 8.00,
+                "Sol Nascente": 8.00,
+                "São José": 9.00,
+                "São Gabriel": 10.00,
+                "Nossa Senhora da Conceição": 10.00,
+                "Bela Vista": 12.00,
+                "Nossa Senhora de Fátima": 14.00,
+                "Rodoviária": 17.00,
+                "Ipiranga": 11.00,
+                "Olaria": 10.00,
+                "Kubitschek": 12.00,
+                "Coronado": 10.00,
+                "Concha da Ostra": 13.00,
+                "Praia do Riacho": 13.00,
+                "Lameirão": 14.00,
+                "Nova Guarapari": 17.00,
+                "Meaípe": 19.00
+            },
+            "Centro": {
+                "Centro": 7.00,
+                "Muquiçaba": 8.00,
+                "Praia do Morro": 9.00,
+                "Itapebuçú": 9.00,
+                "Camurugi": 12.00,
+                "Lagoa Funda": 10.00,
+                "Aeroporto": 12.00,
+                "Santa Rosa": 12.00,
+                "Perocão": 15.00,
+                "Jabaraí": 14.00,
+                "Santa Mônica": 16.00,
+                "Setiba": 20.00,
+                "Ipiranga": 10.00,
+                "Olaria": 9.00,
+                "Kubitschek": 10.00,
+                "Coronado": 9.00,
+                "Concha da Ostra": 13.00,
+                "Nova Guarapari": 15.00,
+                "Meaípe": 17.00,
+                "Condados": 17.00,
+                "Porto Grande": 20.00,
+                "Mãe-bá": 20.00,
+                "Taquaras": 25.00,
+                "Praia do Sol": 30.00,
+                "São Gabriel": 14.00,
+                "São José": 13.00,
+                "Nossa Senhora da Conceição": 12.00,
+                "Nossa Senhora de Fátima": 15.00
+            }
+        };
+
+        document.getElementById('origem').addEventListener('change', calcularValor);
+        document.getElementById('destino').addEventListener('change', calcularValor);
+
+        function calcularValor() {
+            const origem = document.getElementById('origem').value;
+            const destino = document.getElementById('destino').value;
+
+            if (origem && destino) {
+                const valor = valoresEntrega[origem][destino] || valoresEntrega[destino][origem];
+                if (valor) {
+                    document.getElementById('resultado').innerText = `O valor da entrega de ${origem} para ${destino} é R$ ${valor.toFixed(2)}`;
+                } else {
+                    document.getElementById('resultado').innerText = 'Desculpe, não há valores disponíveis para esta rota.';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
