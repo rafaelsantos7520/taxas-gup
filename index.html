@@ -1,41 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="portuguese-brazil">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela de Entregas Guarapari</title>
+    <title>Entregas Rápidas Guarapari - Calcule seu Frete!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        
         body {
-            background-color: #f8f9fa;
-            padding: 20px;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
-            max-width: 600px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
         }
         h1 {
+            color: #2193b0;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #2193b0;
+        }
+        .form-select {
+            border: 2px solid #6dd5ed;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .form-select:focus {
+            box-shadow: 0 0 0 0.25rem rgba(109, 213, 237, 0.25);
+            border-color: #2193b0;
+        }
+        #resultado {
+            background: #2193b0;
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.2em;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .negociacao-info {
+            background-color: #e9f7ef;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 5px solid #27ae60;
+            font-size: 0.9em;
+        }
+        .icon-container {
             text-align: center;
             margin-bottom: 20px;
         }
-        label {
-            margin-top: 10px;
+        .icon-container i {
+            font-size: 4em;
+            color: #2193b0;
         }
-        #resultado {
-            margin-top: 20px;
-            font-weight: bold;
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(0, 15px); }
+            100%   { transform: translate(0, -0px); }   
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Tabela de Entregas - Guarapari</h1>
-        <div class="mb-3">
-            <label for="origem" class="form-label">Selecione a Origem:</label>
-            <select id="origem" class="form-select">
+    <div class="container animate__animated animate__zoomIn">
+        <div class="icon-container">
+            <i class="fas fa-motorcycle floating"></i>
+        </div>
+        <h1 class="animate__animated animate__bounce">Entregas Rápidas Guarapari</h1>
+        <div class="mb-4">
+            <label for="origem" class="form-label">
+                <i class="fas fa-map-marker-alt"></i> Origem:
+            </label>
+            <select id="origem" class="form-select animate__animated animate__fadeInLeft">
                 <option value="">Escolha a origem</option>
                 <option value="Muquiçaba">Muquiçaba</option>
                 <option value="Praia do Morro">Praia do Morro</option>
@@ -43,9 +114,11 @@
             </select>
         </div>
 
-        <div class="mb-3">
-            <label for="destino" class="form-label">Selecione o Destino:</label>
-            <select id="destino" class="form-select">
+        <div class="mb-4">
+            <label for="destino" class="form-label">
+                <i class="fas fa-flag-checkered"></i> Destino:
+            </label>
+            <select id="destino" class="form-select animate__animated animate__fadeInRight">
                 <option value="">Escolha o destino</option>
                 <option value="Muquiçaba">Muquiçaba</option>
                 <option value="Praia do Morro">Praia do Morro</option>
@@ -86,7 +159,11 @@
             </select>
         </div>
 
-        <p id="resultado" class="alert alert-primary"></p>
+        <div id="resultado" class="animate__animated animate__fadeIn pulse"></div>
+
+        <div class="negociacao-info animate__animated animate__fadeInUp">
+            <p><i class="fas fa-info-circle"></i> <strong>Atenção:</strong> Os valores apresentados são sugestões. O valor final pode ser negociado diretamente entre o motoboy e o cliente, considerando fatores como distância, horário e condições específicas da entrega.</p>
+        </div>
     </div>
 
     <script>
@@ -200,9 +277,19 @@
             if (origem && destino) {
                 const valor = valoresEntrega[origem][destino] || valoresEntrega[destino][origem];
                 if (valor) {
-                    document.getElementById('resultado').innerText = `O valor da entrega de ${origem} para ${destino} é R$ ${valor.toFixed(2)}`;
+                    document.getElementById('resultado').innerHTML = `
+                        <i class="fas fa-motorcycle"></i>
+                        <span class="animate__animated animate__rubberBand">
+                            Valor sugerido para entrega de ${origem} para ${destino}:
+                            <br><strong>R$ ${valor.toFixed(2)}</strong>
+                        </span>`;
+                    document.getElementById('resultado').classList.add('animate__animated', 'animate__pulse');
                 } else {
-                    document.getElementById('resultado').innerText = 'Desculpe, não há valores disponíveis para esta rota.';
+                    document.getElementById('resultado').innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span class="animate__animated animate__shakeX">
+                            Desculpe, não há valores sugeridos disponíveis para esta rota.
+                        </span>`;
                 }
             }
         }
